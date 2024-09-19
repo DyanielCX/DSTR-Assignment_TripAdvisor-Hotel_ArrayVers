@@ -3,7 +3,42 @@
 #include <string>
 using namespace std;
 
-int main(){
+const int NEG_WORDS = 4783;
+
+void readCSV();
+void readPositiveWords();
+void readNegativeWords();
+
+int main() {
+    int program;
+
+    cout << "What do you want to do?" << endl;
+    cout << "Choose your activities:" << endl;
+    cout << "1. Read CSV" << endl;
+    cout << "2. Read positive words" << endl;
+    cout << "3. Read negative words" << endl;
+    cout << "Enter number: ";
+    cin >> program;
+
+    switch (program) {
+    case 1:
+        readCSV();
+        break;
+    case 2:
+        readPositiveWords();
+        break;
+    case 3:
+        readNegativeWords();
+        break;
+    default:
+        cout << "Invalid option!" << endl;
+        break;
+    }
+
+    return 0;
+}
+
+void readCSV() {
     // read csv file
     ifstream csv_ipt("tripadvisor_hotel_reviews.csv");
 
@@ -17,7 +52,7 @@ int main(){
     string rating;
 
     // get data from csv file
-   for (int i=0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
         getline(csv_ipt, empty_1, '"');
         getline(csv_ipt, review, '"');
         getline(csv_ipt, empty_2, ',');
@@ -34,4 +69,32 @@ int main(){
     }
 
     csv_ipt.close();
+}
+
+void readPositiveWords() {
+
+}
+
+void readNegativeWords() {
+    ifstream file("negative-words.txt");
+    string words[NEG_WORDS]; // Fixed-size array
+    int count = 0;
+
+    if (file.is_open()) {
+        string word;
+        while (file >> word && count < NEG_WORDS) {
+            words[count] = word; // Store each word in the array
+            count++;
+        }
+        file.close();
+
+        // Output the array content
+        cout << "Negative words loaded into fixed-size array:" << endl;
+        for (int i = 0; i < count; i++) {
+            cout << words[i] << endl;
+        }
+    }
+    else {
+        cout << "Unable to open file." << endl;
+    }
 }
