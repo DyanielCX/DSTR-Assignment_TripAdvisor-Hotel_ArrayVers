@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="negative-words.txt" />
+    <Text Include="positive-words.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

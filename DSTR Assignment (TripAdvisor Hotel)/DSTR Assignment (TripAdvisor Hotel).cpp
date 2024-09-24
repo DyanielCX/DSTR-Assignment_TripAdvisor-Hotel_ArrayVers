@@ -3,6 +3,7 @@
 #include <string>
 using namespace std;
 
+const int POS_WORDS = 2006; 
 const int NEG_WORDS = 4783;
 
 void readCSV();
@@ -72,7 +73,28 @@ void readCSV() {
 }
 
 void readPositiveWords() {
+    ifstream file("positive-words.txt"); // Opens the positive words file
+    string words[POS_WORDS]; // Create a fixed-size array for storing positive words
+    int count = 0;
 
+    if (file.is_open()) {
+        string word;
+        // Reading positive words from the file into the array
+        while (file >> word && count < POS_WORDS) {
+            words[count] = word; // Store each word in the array
+            count++;
+        }
+        file.close();
+
+        // Output the positive words stored in the array
+        cout << "Positive words loaded into fixed-size array:" << endl;
+        for (int i = 0; i < count; i++) {
+            cout << words[i] << endl;
+        }
+    }
+    else {
+        cout << "Unable to open file." << endl;
+    }
 }
 
 void readNegativeWords() {
