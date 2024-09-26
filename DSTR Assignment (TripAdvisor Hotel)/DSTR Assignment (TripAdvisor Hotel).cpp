@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <string>
 using namespace std;
 
@@ -40,36 +41,56 @@ int main() {
 }
 
 void readCSV() {
-    // read csv file
-    ifstream csv_ipt("tripadvisor_hotel_reviews.csv");
+    cout << "test" << endl;
+    // Read csv file
+    ifstream csv_read("tripadvisor_hotel_reviews.csv");
 
-    if (!csv_ipt.is_open()) {
-        cout << "ERROR: File Open" << endl;
+    if (csv_read.is_open()) {
+        
+        // Create vector
+        const int lineNum = 20491;
+        /*string review_arr[lineNum][2];*/
+        vector<pair<string, string>> review_arr;
+
+        // Get data from csv file
+        for (int i = 0; i < lineNum; i++) {
+            string empty_1;
+            string review;
+            string empty_2;
+            string rating;
+
+            getline(csv_read, empty_1, '"');
+            getline(csv_read, review, '"');
+            getline(csv_read, empty_2, ',');
+            getline(csv_read, rating, '\n');
+
+            cout << "Review: \n" << review << endl;
+            cout << "Rating: " << rating << endl << endl;
+
+            // Insert review and rating into the vector
+            review_arr.push_back(make_pair(review, rating));
+        }
+
+        // Test print all the review and rating
+        for (int i = 0; i < lineNum; i++) {
+            string curReview = review_arr[i].first;
+            string curRating = review_arr[i].second;
+
+            cout << i+1 << " Review & Rating" << endl;
+            cout << "Rating: " << curRating << endl;
+            cout << "Review: \n" << curReview << endl << endl;
+        }
+
+        ////test convert str to int
+        //int rating_int = stoi(rating);
+        //rating_int = rating_int + 1;
+        //cout << "Rating in str: " << rating << endl;
+        //cout << "Rating in int (+1): " << rating_int << endl << endl;
+    }else {
+        cout << "ERROR: tripadvisor_hotel_reviews.csv open fail" << endl;
     }
 
-    string empty_1;
-    string review;
-    string empty_2;
-    string rating;
-
-    // get data from csv file
-    for (int i = 0; i < 10; i++) {
-        getline(csv_ipt, empty_1, '"');
-        getline(csv_ipt, review, '"');
-        getline(csv_ipt, empty_2, ',');
-        getline(csv_ipt, rating, '\n');
-
-        cout << "Review: \n" << review << endl;
-        cout << "Rating: " << rating << endl << endl;
-
-        //test convert str to int
-        int rating_int = stoi(rating);
-        rating_int = rating_int + 1;
-        cout << "Rating in str: " << rating << endl;
-        cout << "Rating in int (+1): " << rating_int << endl << endl;
-    }
-
-    csv_ipt.close();
+    csv_read.close();
 }
 
 void readPositiveWords() {
