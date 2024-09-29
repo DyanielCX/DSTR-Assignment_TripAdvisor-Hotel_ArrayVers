@@ -7,11 +7,38 @@ using namespace std;
 const int POS_WORDS = 2006; 
 const int NEG_WORDS = 4783;
 
+void readfile();
 void readCSV();
 void readPositiveWords();
 void readNegativeWords();
+void countSentimentWord();
 
 int main() {
+    int program;
+
+    cout << "What do you want to do?" << endl;
+    cout << "Choose your activities:" << endl;
+    cout << "1. Read File" << endl;
+    cout << "2. Read Review" << endl;
+    cout << "Enter number: ";
+    cin >> program;
+
+    switch (program) {
+    case 1:
+        readfile();
+        break;
+    case 2:
+        countSentimentWord();
+        break;
+    default:
+        cout << "Invalid option!" << endl;
+        break;
+    }
+    return 0;
+    
+}
+
+void readfile() {
     int program;
 
     cout << "What do you want to do?" << endl;
@@ -36,8 +63,7 @@ int main() {
         cout << "Invalid option!" << endl;
         break;
     }
-
-    return 0;
+    return;
 }
 
 void readCSV() {
@@ -141,3 +167,66 @@ void readNegativeWords() {
         cout << "Unable to open file." << endl;
     }
 }
+
+void countSentimentWord() {
+    // Read csv file
+    ifstream csv_read("tripadvisor_hotel_reviews.csv");
+
+    if (csv_read.is_open()) {
+
+        // Define constant for the number of reviews
+        const int lineNum = 20491;
+
+        // Dynamically allocate memory for the arrays
+        string* review_arr = new string[lineNum];
+        string* rating_arr = new string[lineNum];
+
+        // Get data from csv file
+        for (int i = 0; i < lineNum; i++) {
+            string empty_1;
+            string review;
+            string empty_2;
+            string rating;
+
+            getline(csv_read, empty_1, '"');
+            getline(csv_read, review, '"');
+            getline(csv_read, empty_2, ',');
+            getline(csv_read, rating, '\n');
+
+            // Insert review and rating into the arrays
+            review_arr[i] = review;
+            rating_arr[i] = rating;
+        }
+
+        int reviewNum = 0;
+        do {
+            // Ask user which review number they want to see
+            cout << "There are total " << lineNum << " reviews \n";
+            cout << "Enter number (1 to " << lineNum << ") to read review, or 0 to exit: ";
+            cin >> reviewNum;
+
+            if (reviewNum > 0 && reviewNum <= lineNum) {
+                string curReview = review_arr[reviewNum - 1];  // Get the review from array
+                string curRating = rating_arr[reviewNum - 1];  // Get the rating from array
+
+                cout << "\nReview #" << reviewNum << ":\n";
+                cout << "Rating: " << curRating << endl;
+                cout << "Review: \n" << curReview << endl << endl;
+            }
+            else if (reviewNum != 0) {
+                cout << "Invalid review number! Please enter a number between 1 and " << lineNum << "." << endl;
+            }
+        } while (reviewNum != 0);
+
+        // Clean up the dynamically allocated memory
+        delete[] review_arr;
+        delete[] rating_arr;
+
+    }
+    else {
+        cout << "ERROR: tripadvisor_hotel_reviews.csv open failed." << endl;
+    }
+
+    csv_read.close();
+}
+
