@@ -67,16 +67,17 @@ void readfile() {
 }
 
 void readCSV() {
-    cout << "test" << endl;
     // Read csv file
     ifstream csv_read("tripadvisor_hotel_reviews.csv");
 
     if (csv_read.is_open()) {
         
-        // Create vector
+        // Define constant for the number of reviews
         const int lineNum = 20491;
-        /*string review_arr[lineNum][2];*/
-        vector<pair<string, string>> review_arr;
+
+        // Dynamically allocate memory for the arrays
+        string* review_arr = new string[lineNum];
+        string* rating_arr = new string[lineNum];
 
         // Get data from csv file
         for (int i = 0; i < lineNum; i++) {
@@ -90,17 +91,15 @@ void readCSV() {
             getline(csv_read, empty_2, ',');
             getline(csv_read, rating, '\n');
 
-            cout << "Review: \n" << review << endl;
-            cout << "Rating: " << rating << endl << endl;
-
-            // Insert review and rating into the vector
-            review_arr.push_back(make_pair(review, rating));
+            // Insert review and rating into the arrays
+            review_arr[i] = review;
+            rating_arr[i] = rating;
         }
 
         // Test print all the review and rating
         for (int i = 0; i < lineNum; i++) {
-            string curReview = review_arr[i].first;
-            string curRating = review_arr[i].second;
+            string curReview = review_arr[i];
+            string curRating = rating_arr[i];
 
             cout << i+1 << " Review & Rating" << endl;
             cout << "Rating: " << curRating << endl;
@@ -140,7 +139,7 @@ void readPositiveWords() {
         }
     }
     else {
-        cout << "Unable to open file." << endl;
+        cout << "ERROR: positive-words.txt open failed" << endl;
     }
 }
 
@@ -164,7 +163,7 @@ void readNegativeWords() {
         }
     }
     else {
-        cout << "Unable to open file." << endl;
+        cout << "ERROR: negative-words.txt open failed" << endl;
     }
 }
 
@@ -224,7 +223,7 @@ void countSentimentWord() {
 
     }
     else {
-        cout << "ERROR: tripadvisor_hotel_reviews.csv open failed." << endl;
+        cout << "ERROR: tripadvisor_hotel_reviews.csv open failed" << endl;
     }
 
     csv_read.close();
