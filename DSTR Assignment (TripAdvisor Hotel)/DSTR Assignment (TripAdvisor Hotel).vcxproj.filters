@@ -18,10 +18,25 @@
     <ClCompile Include="DSTR Assignment (TripAdvisor Hotel).cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataRefresh_Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main-with-header.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="tripadvisor_hotel_reviews.csv">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="negative-words.txt" />
+    <Text Include="positive-words.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ReadInput.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

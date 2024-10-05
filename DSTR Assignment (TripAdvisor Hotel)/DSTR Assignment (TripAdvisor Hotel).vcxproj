@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DSTR Assignment (TripAdvisor Hotel).cpp" />
+    <ClCompile Include="DataRefresh_Menu.hpp" />
+    <ClCompile Include="Main-with-header.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="tripadvisor_hotel_reviews.csv" />
@@ -135,6 +137,9 @@
   <ItemGroup>
     <Text Include="negative-words.txt" />
     <Text Include="positive-words.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ReadInput.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
