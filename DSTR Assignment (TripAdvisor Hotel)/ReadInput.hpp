@@ -12,10 +12,10 @@ struct ReviewAndRating {
     string* rating_arr;
 };
 
-// Class to read CSV and text files
+
 class ReadFile {
 public:
-    // Inline function to read CSV
+    // Read review & rating csv file function
     inline ReviewAndRating readCSV(const int lineNum) {
         ReviewAndRating CSV_input;
         ifstream file_read("tripadvisor_hotel_reviews.csv");
@@ -39,13 +39,13 @@ public:
             file_read.close();
         }
         else {
-            cout << "ERROR: tripadvisor_hotel_reviews.csv open fail" << endl;
+            cout << "ERROR: Unable to open tripadvisor_hotel_reviews.csv" << endl;
         }
 
         return CSV_input;
     }
 
-    // Inline function to read positive words from a text file
+    // Read positive word text file function
     inline string* readPositiveWords(const int lineNum) {
         string* posWords = new string[lineNum];
         ifstream file_read("positive-words.txt");
@@ -63,7 +63,7 @@ public:
         return posWords;
     }
 
-    // Inline function to read negative words from a text file
+    // Read negative word text file function
     inline string* readNegativeWords(const int lineNum) {
         string* negWords = new string[lineNum];
         ifstream file_read("negative-words.txt");

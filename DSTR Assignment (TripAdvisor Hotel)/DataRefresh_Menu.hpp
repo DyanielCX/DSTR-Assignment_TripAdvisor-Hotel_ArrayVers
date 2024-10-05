@@ -1,47 +1,54 @@
+#ifndef DATAREFRESH_MENU_HPP
+#define DATAREFRESH_MENU_HPP
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include "ReadInput.hpp"
-#ifndef DATAREFRESH_MENU_HPP
-#define DATAREFRESH_MENU_HPP
 using namespace std;
 
-//const int CSV_lines = 20491;
-//const int POS_WORDS = 2006;  // Number of positive words in the text file
-//const int NEG_WORDS = 4783;  // Number of negative words in the text file
 
-void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, string* &NegWord_Data, const int CSV_lines, const int POS_WORDS, const int NEG_WORDS) {
+inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, string* &NegWord_Data, const int CSV_lines, const int POS_WORDS, const int NEG_WORDS) {
     
     int program;
     ReadFile fileReader;
-    //ReviewAndRating Review_Data;
-    //string* PosWord_Data;
-    //string* NegWord_Data;
 
     while (true) {
-        cout << "What do you want to do?" << endl;
-        cout << "Choose your activities:" << endl;
-        cout << "1. Read CSV" << endl;
-        cout << "2. Read positive words" << endl;
-        cout << "3. Read negative words" << endl;
+        // Title design
+        cout << "\n";
+        cout << "\033[0;34m"; // Set the text color to bright blue
+        cout << "---------------------------------------" << endl;
+        cout << "            Data Refresh              " << endl;
+        cout << "---------------------------------------" << endl;
+        cout << "\033[0m";
+        cout << "\n";
+
+        cout << "Choose the data that you want to refresh" << endl;
+        cout << "1. Review & Rating" << endl;
+        cout << "2. Positive words" << endl;
+        cout << "3. Negative words" << endl;
         cout << "Enter number: ";
         cin >> program;
 
+
         switch (program) {
-        case 1: // Read CSV File
+        case 1: // Refresh CSV File
             Review_Data = fileReader.readCSV(CSV_lines);
+            cout << "<-- The review & rating array is refreshed -->" << endl << endl;
             break;
 
-        case 2: // Read Positive Word Text File
+        case 2: // Refresh Positive Word Text File
             PosWord_Data = fileReader.readPositiveWords(POS_WORDS);
+            cout << "<-- The positive word array is refreshed -->" << endl << endl;
             break;
 
-        case 3: // Read Negative Word Text File
+        case 3: // Refresh Negative Word Text File
             NegWord_Data = fileReader.readNegativeWords(NEG_WORDS);
+            cout << "<-- The positive word array is refreshed -->" << endl << endl;
             break;
 
-        default:    // Re-prompt the user
+        default:    // Re-prompt the user option
             cout << "Invalid option!" << endl << endl;
             continue;
         }

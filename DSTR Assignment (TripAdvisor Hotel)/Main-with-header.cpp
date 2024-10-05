@@ -23,19 +23,55 @@ int main() {
     PosWord_Data = fileReader.readPositiveWords(POS_WORDS);
     NegWord_Data = fileReader.readNegativeWords(NEG_WORDS);
 
+    // Logo
+    cout << "\n";
+    cout << "\033[1;31m";  // Set the text color to bright red
+    cout << "*************************************************************" << endl;
+    cout << "*          T R I P A D V I S O R   H O T E L                *" << endl;
+    cout << "*                                                           *" << endl;
+    cout << "*     /$$$$$$$$        /$$            /$$$$$$        /$$    *" << endl;
+    cout << "*    |__  $$__/       |__/           /$$__  $$      | $$    *" << endl;
+    cout << "*       | $$  /$$$$$$  /$$  /$$$$$$ | $$  \\ $$  /$$$$$$$    *" << endl;
+    cout << "*       | $$ /$$__  $$| $$ /$$__  $$| $$$$$$$$ /$$__  $$    *" << endl;
+    cout << "*       | $$| $$  \\__/| $$| $$  | $$| $$__  $$| $$  | $$    *" << endl;
+    cout << "*       | $$| $$      | $$| $$  | $$| $$  | $$| $$  | $$    *" << endl;
+    cout << "*       | $$| $$      | $$| $$$$$$$/| $$  | $$|  $$$$$$$    *" << endl;
+    cout << "*       |__/|__/      |__/| $$____/ |__/  |__/ \\_______/    *" << endl;
+    cout << "*                         | $$                              *" << endl;
+    cout << "*                         | $$                              *" << endl;
+    cout << "*                         |__/                              *" << endl;
+    cout << "*                                                           *" << endl;
+    cout << "*     Your Trusted Source for Genuine Hotel Reviews!        *" << endl;
+    cout << "*************************************************************" << endl;
+    cout << "\033[0m";
+
     // Main Menu
     while (true) {
+        // Title design
+        cout << "\n";
+        cout << "\033[1;36m";  // Sets the text color to bright cyan
+        cout << "******************************" << endl;
+        cout << "*         MAIN MENU          *" << endl;
+        cout << "******************************" << endl;
+        cout << "\033[0m";
+        cout << "\n";
+
         cout << "What do you want to do?" << endl;
         cout << "Choose your activities:" << endl;
         cout << "1. Refresh Data" << endl;
         cout << "2. Read Review" << endl;
+        cout << "3. Read Positive Word" << endl;
+        cout << "4. Read Negative Word" << endl;
         cout << "Enter number: ";
         cin >> program;
+        
 
         switch (program) {
         case 1:
+            cout << endl;
             refreshData(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
-
+            break;
+        case 2:
             // Output review
             if (Review_Data.review_arr && Review_Data.rating_arr) {
                 for (int i = 0; i < CSV_lines; i++) {
@@ -44,20 +80,21 @@ int main() {
                     cout << "Review: \n" << Review_Data.review_arr[i] << endl << endl;
                 }
             }
-
+            cout << endl;
+            break;
+        case 3:
             // Output positive word
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < POS_WORDS; i++) {
                 cout << PosWord_Data[i] << endl;
             }
-
-            // Output the words (for demonstration, let's print the first 10 words)
-            for (int i = 0; i < 10; i++) {
+            cout << endl;
+            break;
+        case 4:
+            // Output Negative word
+            for (int i = 0; i < NEG_WORDS; i++) {
                 cout << NegWord_Data[i] << endl;
             }
-
-            break;
-        case 2:
-            //countSentimentWord();
+            cout << endl;
             break;
         default:
             cout << "Invalid option!" << endl;
