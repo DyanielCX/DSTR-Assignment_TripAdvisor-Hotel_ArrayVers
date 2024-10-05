@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <algorithm>
+#include <limits.h>
 using namespace std;
 
 const int POS_WORDS = 2006;  // Number of positive words in the text file
@@ -12,6 +14,7 @@ void readCSV();
 void readPositiveWords();
 void readNegativeWords();
 void countSentimentWord();
+void summary();
 
 int main() {
     int program;
@@ -20,6 +23,7 @@ int main() {
     cout << "Choose your activities:" << endl;
     cout << "1. Read File" << endl;
     cout << "2. Read Review" << endl;
+    cout << "3. Summary" << endl;
     cout << "Enter number: ";
     cin >> program;
 
@@ -29,6 +33,9 @@ int main() {
         break;
     case 2:
         countSentimentWord();
+        break;
+    case 3:
+        summary();
         break;
     default:
         cout << "Invalid option!" << endl;
@@ -259,3 +266,141 @@ void countSentimentWord() {
     delete[] negWords;
     csv_read.close();
 }
+
+void summary() {
+    const int POS_WORDS = 2006;
+    const int NEG_WORDS = 4783;
+
+    // Load positive and negative words into arrays
+    string* posWords = new string[POS_WORDS];
+    string* negWords = new string[NEG_WORDS];
+
+    ifstream posFile("positive-words.txt");
+    ifstream negFile("negative-words.txt");
+
+    if (posFile.is_open() && negFile.is_open()) {
+        for (int i = 0; i < POS_WORDS; i++) posFile >> posWords[i];
+        for (int i = 0; i < NEG_WORDS; i++) negFile >> negWords[i];
+    }
+    posFile.close();
+    negFile.close();
+
+    // Sort the word lists for binary searching
+    sort(posWords, posWords + POS_WORDS);
+    sort(negWords, negWords + NEG_WORDS);
+
+    // Load reviews from CSV file
+    ifstream csv_read("tripadvisor_hotel_reviews.csv");
+
+    if (csv_read.is_open()) {
+        const int lineNum = 20491;
+        string* review_arr = new string[lineNum];
+
+        for (int i = 0; i < lineNum; i++) {
+            string empty_1, review, empty_2, rating;
+
+            getline(csv_read, empty_1, '"');
+            getline(csv_read, review, '"');
+            getline(csv_read, empty_2, ',');
+            getline(csv_read, rating, '\n');
+
+            review_arr[i] = review;  // Store review text
+        }
+
+        // Arrays to store the frequency of each positive and negative word
+        int* posWordFreq = new int[POS_WORDS]();
+        int* negWordFreq = new int[NEG_WORDS]();
+
+        int totalPosCount = 0;
+        int totalNegCount = 0;
+
+        // Process each review
+        for (int i = 0; i < lineNum; i++) {
+            string curReview = review_arr[i];
+
+            // Convert review to lowercase for case-insensitive matching
+            transform(curReview.begin(), curReview.end(), curReview.begin(), ::tolower);
+
+            // Check for occurrences of positive words
+            for (int j = 0; j < POS_WORDS; j++) {
+                if (curReview.find(posWords[j]) != string::npos) {
+                    posWordFreq[j]++;
+                    totalPosCount++;
+                }
+            }
+
+            // Check for occurrences of negative words
+            for (int j = 0; j < NEG_WORDS; j++) {
+                if (curReview.find(negWords[j]) != string::npos) {
+                    negWordFreq[j]++;
+                    totalNegCount++;
+                }
+            }
+        }
+
+        // Display total counts of positive and negative words
+        cout << "\nTotal Reviews = " << lineNum << endl;
+        cout << "Total Counts of positive words = " << totalPosCount << endl;
+        cout << "Total Counts of negative words = " << totalNegCount << endl;
+
+        // Display frequency of each positive word used
+        cout << "\nFrequency of each positive word in reviews:\n";
+        for (int i = 0; i < POS_WORDS; i++) {
+            if (posWordFreq[i] > 0) {
+                cout << posWords[i] << " = " << posWordFreq[i] << " times" << endl;
+            }
+        }
+
+        // Display frequency of each negative word used
+        cout << "\nFrequency of each negative word in reviews:\n";
+        for (int i = 0; i < NEG_WORDS; i++) {
+            if (negWordFreq[i] > 0) {
+                cout << negWords[i] << " = " << negWordFreq[i] << " times" << endl;
+            }
+        }
+
+        // Find the maximum and minimum used words
+        int maxFreq = 0, minFreq = INT_MAX;
+        string maxUsedWord, minUsedWord;
+
+        // Search through positive words
+        for (int i = 0; i < POS_WORDS; i++) {
+            if (posWordFreq[i] > maxFreq) {
+                maxFreq = posWordFreq[i];
+                maxUsedWord = posWords[i];
+            }
+            if (posWordFreq[i] > 0 && posWordFreq[i] < minFreq) {
+                minFreq = posWordFreq[i];
+                minUsedWord = posWords[i];
+            }
+        }
+
+        // Search through negative words
+        for (int i = 0; i < NEG_WORDS; i++) {
+            if (negWordFreq[i] > maxFreq) {
+                maxFreq = negWordFreq[i];
+                maxUsedWord = negWords[i];
+            }
+            if (negWordFreq[i] > 0 && negWordFreq[i] < minFreq) {
+                minFreq = negWordFreq[i];
+                minUsedWord = negWords[i];
+            }
+        }
+
+        // Display max and min used words
+        cout << "\nMaximum used word in the reviews: " << maxUsedWord << " (" << maxFreq << " times)" << endl;
+        cout << "Minimum used word in the reviews: " << minUsedWord << " (" << minFreq << " times)" << endl;
+
+        // Clean up dynamically allocated memory
+        delete[] review_arr;
+        delete[] posWordFreq;
+        delete[] negWordFreq;
+    }
+    else {
+        cout << "ERROR: tripadvisor_hotel_reviews.csv open fail" << endl;
+    }
+
+    delete[] posWords;
+    delete[] negWords;
+}
+
