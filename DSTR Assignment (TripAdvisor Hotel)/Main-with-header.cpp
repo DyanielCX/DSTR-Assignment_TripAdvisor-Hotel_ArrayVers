@@ -59,7 +59,7 @@ int main() {
 
         cout << "What do you want to do?" << endl;
         cout << "Choose your activities:" << endl;
-        cout << "1. Refresh Data" << endl;
+        cout << "1. Data Refresh" << endl;
         cout << "2. Review Analysis" << endl;
         cout << "3. Read Positive Word" << endl;
         cout << "4. Read Negative Word" << endl;
