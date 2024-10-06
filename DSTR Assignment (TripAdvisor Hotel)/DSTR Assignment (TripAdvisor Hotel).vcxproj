@@ -140,6 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReadInput.hpp" />
+    <ClInclude Include="RevAnalysisCalc.hpp" />
+    <ClInclude Include="RevAnalysis_Menu.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

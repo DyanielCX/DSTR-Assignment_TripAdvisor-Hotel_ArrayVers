@@ -4,6 +4,7 @@
 #include <string>
 #include "ReadInput.hpp"
 #include "DataRefresh_Menu.hpp"
+#include "RevAnalysis_Menu.hpp"
 using namespace std;
 
 const int CSV_lines = 20491;    // Number of lines in the csv file
@@ -59,7 +60,7 @@ int main() {
         cout << "What do you want to do?" << endl;
         cout << "Choose your activities:" << endl;
         cout << "1. Refresh Data" << endl;
-        cout << "2. Read Review" << endl;
+        cout << "2. Review Analysis" << endl;
         cout << "3. Read Positive Word" << endl;
         cout << "4. Read Negative Word" << endl;
         cout << "Enter number: ";
@@ -72,15 +73,7 @@ int main() {
             refreshData(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
             break;
         case 2:
-            // Output review
-            if (Review_Data.review_arr && Review_Data.rating_arr) {
-                for (int i = 0; i < CSV_lines; i++) {
-                    cout << i + 1 << " Review & Rating" << endl;
-                    cout << "Rating: " << Review_Data.rating_arr[i] << endl;
-                    cout << "Review: \n" << Review_Data.review_arr[i] << endl << endl;
-                }
-            }
-            cout << endl;
+            countSentimentWord(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
             break;
         case 3:
             // Output positive word
