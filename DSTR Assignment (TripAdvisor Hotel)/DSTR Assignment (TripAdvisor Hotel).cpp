@@ -3,8 +3,9 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
-#include <limits.h>
+#include <chrono>
 using namespace std;
+using namespace chrono;
 
 const int POS_WORDS = 2006;  // Number of positive words in the text file
 const int NEG_WORDS = 4783;  // Number of negative words in the text file
@@ -268,6 +269,9 @@ void countSentimentWord() {
 }
 
 void summary() {
+    cout << "Processing the reviews... This might take some time. Please wait." << endl;
+    auto start = high_resolution_clock::now();  // Start the timer
+
     const int POS_WORDS = 2006;
     const int NEG_WORDS = 4783;
 
@@ -462,6 +466,14 @@ void summary() {
 
     delete[] posWords;
     delete[] negWords;
+
+    auto end = high_resolution_clock::now();  // End the timer
+    auto duration = duration_cast<seconds>(end - start);
+
+    int minutes = duration.count() / 60;
+    int seconds = duration.count() % 60;
+
+    cout << "\nTime taken: " << minutes << " minutes " << seconds << " seconds" << endl;
 }
 
 
