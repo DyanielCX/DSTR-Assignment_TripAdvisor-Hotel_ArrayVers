@@ -127,9 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DSTR Assignment (TripAdvisor Hotel).cpp" />
     <ClCompile Include="DataRefresh_Menu.hpp" />
-    <ClCompile Include="Main-with-header.cpp" />
+    <ClCompile Include="DSTR Assignment (TripAdvisor Hotel).cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="tripadvisor_hotel_reviews.csv" />

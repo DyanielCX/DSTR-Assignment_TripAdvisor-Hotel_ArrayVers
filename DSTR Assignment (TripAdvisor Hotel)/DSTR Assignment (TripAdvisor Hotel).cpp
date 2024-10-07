@@ -359,42 +359,102 @@ void summary() {
             }
         }
 
-        // Find the maximum and minimum used words
-        int maxFreq = 0, minFreq = INT_MAX;
-        string maxUsedWord, minUsedWord;
+        // Find the minimum and maximum used words
+        int minFreq = INT_MAX;
+        int maxFreq = 0;
+        int minWordCount = 0;  // Counter for minimum-used words
+        int maxWordCount = 0;  // Counter for maximum-used words
 
         // Search through positive words
         for (int i = 0; i < POS_WORDS; i++) {
-            if (posWordFreq[i] > maxFreq) {
-                maxFreq = posWordFreq[i];
-                maxUsedWord = posWords[i];
-            }
             if (posWordFreq[i] > 0 && posWordFreq[i] < minFreq) {
                 minFreq = posWordFreq[i];
-                minUsedWord = posWords[i];
+                minWordCount = 1;
+            }
+            else if (posWordFreq[i] == minFreq) {
+                minWordCount++;
+            }
+
+            if (posWordFreq[i] > maxFreq) {
+                maxFreq = posWordFreq[i];
+                maxWordCount = 1;
+            }
+            else if (posWordFreq[i] == maxFreq) {
+                maxWordCount++;
             }
         }
 
         // Search through negative words
         for (int i = 0; i < NEG_WORDS; i++) {
-            if (negWordFreq[i] > maxFreq) {
-                maxFreq = negWordFreq[i];
-                maxUsedWord = negWords[i];
-            }
             if (negWordFreq[i] > 0 && negWordFreq[i] < minFreq) {
                 minFreq = negWordFreq[i];
-                minUsedWord = negWords[i];
+                minWordCount = 1;
+            }
+            else if (negWordFreq[i] == minFreq) {
+                minWordCount++;
+            }
+
+            if (negWordFreq[i] > maxFreq) {
+                maxFreq = negWordFreq[i];
+                maxWordCount = 1;
+            }
+            else if (negWordFreq[i] == maxFreq) {
+                maxWordCount++;
             }
         }
 
-        // Display max and min used words
-        cout << "\nMaximum used word in the reviews: " << maxUsedWord << " (" << maxFreq << " times)" << endl;
-        cout << "Minimum used word in the reviews: " << minUsedWord << " (" << minFreq << " times)" << endl;
+        // Arrays to store all the minimum and maximum used words
+        string* minUsedWords = new string[minWordCount];
+        string* maxUsedWords = new string[maxWordCount];
+        int minIndex = 0;
+        int maxIndex = 0;
+
+        // Add the minimum and maximum used positive words to the arrays
+        for (int i = 0; i < POS_WORDS; i++) {
+            if (posWordFreq[i] == minFreq) {
+                minUsedWords[minIndex++] = posWords[i];
+            }
+            if (posWordFreq[i] == maxFreq) {
+                maxUsedWords[maxIndex++] = posWords[i];
+            }
+        }
+
+        // Add the minimum and maximum used negative words to the arrays
+        for (int i = 0; i < NEG_WORDS; i++) {
+            if (negWordFreq[i] == minFreq) {
+                minUsedWords[minIndex++] = negWords[i];
+            }
+            if (negWordFreq[i] == maxFreq) {
+                maxUsedWords[maxIndex++] = negWords[i];
+            }
+        }
+
+        // Display maximum used words
+        cout << "\nMaximum used words in the reviews: ";
+        for (int i = 0; i < maxWordCount; i++) {
+            cout << maxUsedWords[i];
+            if (i < maxWordCount - 1) {
+                cout << ", ";
+            }
+        }
+        cout << " (" << maxFreq << " times)" << endl;
+
+        // Display minimum used words
+        cout << "\nMinimum used words in the reviews: ";
+        for (int i = 0; i < minWordCount; i++) {
+            cout << minUsedWords[i];
+            if (i < minWordCount - 1) {
+                cout << ", ";
+            }
+        }
+        cout << " (" << minFreq << " times)" << endl;
 
         // Clean up dynamically allocated memory
         delete[] review_arr;
         delete[] posWordFreq;
         delete[] negWordFreq;
+        delete[] minUsedWords;
+        delete[] maxUsedWords;
     }
     else {
         cout << "ERROR: tripadvisor_hotel_reviews.csv open fail" << endl;
@@ -403,4 +463,5 @@ void summary() {
     delete[] posWords;
     delete[] negWords;
 }
+
 
