@@ -16,7 +16,7 @@ inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, str
 
     while (true) {
         // Title design
-        cout << "\n";
+        cout << "\n\n";
         cout << "\033[0;34m"; // Set the text color to bright blue
         cout << "---------------------------------------" << endl;
         cout << "            Data Refresh              " << endl;
@@ -28,6 +28,7 @@ inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, str
         cout << "1. Review & Rating" << endl;
         cout << "2. Positive words" << endl;
         cout << "3. Negative words" << endl;
+        cout << "0. Back to main" << endl;
         cout << "Enter number: ";
         cin >> program;
 
@@ -35,17 +36,21 @@ inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, str
         switch (program) {
         case 1: // Refresh CSV File
             Review_Data = fileReader.readCSV(CSV_lines);
-            cout << "<-- The review & rating array is refreshed -->" << endl << endl;
-            break;
+            cout << "<-- The review & rating array is refreshed -->" << endl ;
+            continue;
 
         case 2: // Refresh Positive Word Text File
             PosWord_Data = fileReader.readPositiveWords(POS_WORDS);
-            cout << "<-- The positive word array is refreshed -->" << endl << endl;
-            break;
+            cout << "<-- The positive word array is refreshed -->" << endl;
+            continue;
 
         case 3: // Refresh Negative Word Text File
             NegWord_Data = fileReader.readNegativeWords(NEG_WORDS);
-            cout << "<-- The positive word array is refreshed -->" << endl << endl;
+            cout << "<-- The positive word array is refreshed -->" << endl;
+            continue;
+
+        case 0: // Refresh Negative Word Text File
+            cout << "\n \n";
             break;
 
         default:    // Re-prompt the user option
