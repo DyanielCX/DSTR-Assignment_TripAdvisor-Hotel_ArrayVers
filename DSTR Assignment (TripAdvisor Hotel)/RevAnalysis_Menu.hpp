@@ -16,7 +16,7 @@ inline void countSentimentWord(ReviewAndRating Review_Data, string* PosWord_Data
         int reviewNum = 0;
         do {
             // Title design
-            cout << "\n \n";
+            cout << "\n \n \n";
             cout << "\033[0;34m"; // Set the text color to bright blue
             cout << "---------------------------------------" << endl;
             cout << "            Review Analysis            " << endl;
@@ -63,7 +63,7 @@ inline void countSentimentWord(ReviewAndRating Review_Data, string* PosWord_Data
                 cout << "\033[0m";
                 cout << "Sentiment Score(1-5) = " << round(sentimentScore) << endl;
                 cout << "Rating given by user = " << curRating << endl;
-                cout << "\nAnalysis output: \n" << AnlysOutput << endl;
+                cout << "\nAnalysis output: \n \n" << AnlysOutput << endl;
 
                 // Clean up dynamically allocated memory for found words
                 delete[] foundPosWords;

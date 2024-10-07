@@ -5,6 +5,7 @@
 #include "ReadInput.hpp"
 #include "DataRefresh_Menu.hpp"
 #include "RevAnalysis_Menu.hpp"
+#include "Summary.hpp"
 using namespace std;
 
 const int CSV_lines = 20491;    // Number of lines in the csv file
@@ -61,32 +62,30 @@ int main() {
         cout << "Choose your activities:" << endl;
         cout << "1. Data Refresh" << endl;
         cout << "2. Review Analysis" << endl;
-        cout << "3. Read Positive Word" << endl;
-        cout << "4. Read Negative Word" << endl;
+        cout << "3. Show Summary" << endl;
+        cout << "4. Show All Positive Word" << endl;
+        cout << "5. Show All Negative Word" << endl;
         cout << "Enter number: ";
         cin >> program;
         
 
         switch (program) {
         case 1:
-            cout << endl;
             refreshData(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
             break;
         case 2:
             countSentimentWord(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
             break;
         case 3:
-            // Output positive word
-            for (int i = 0; i < POS_WORDS; i++) {
-                cout << PosWord_Data[i] << endl;
-            }
+            summary(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
             cout << endl;
             break;
         case 4:
-            // Output Negative word
-            for (int i = 0; i < NEG_WORDS; i++) {
-                cout << NegWord_Data[i] << endl;
-            }
+            fileReader.showPosWord(PosWord_Data, POS_WORDS);
+            cout << endl;
+            break;
+        case 5:
+            fileReader.showNegWord(NegWord_Data, NEG_WORDS);
             cout << endl;
             break;
         default:
@@ -94,6 +93,11 @@ int main() {
             break;
         }
     }
+
+    delete[] Review_Data.review_arr;
+    delete[] Review_Data.rating_arr;
+    delete[] PosWord_Data;
+    delete[] NegWord_Data;
 
     return 0;
 }

@@ -80,6 +80,20 @@ public:
 
         return negWords;
     }
+
+    // Display all positive word
+    inline void showPosWord(string* PosWord_Data, const int POS_WORDS) {
+        for (int i = 0; i < POS_WORDS; i++) {
+            cout << PosWord_Data[i] << endl;
+        }
+    }
+
+    // Display all negative word
+    inline void showNegWord(string* NegWord_Data, const int NEG_WORDS) {
+        for (int i = 0; i < NEG_WORDS; i++) {
+            cout << NegWord_Data[i] << endl;
+        }
+    }
 };
 
 #endif 

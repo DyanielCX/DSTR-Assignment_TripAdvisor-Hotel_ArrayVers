@@ -16,10 +16,10 @@ inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, str
 
     while (true) {
         // Title design
-        cout << "\n\n";
+        cout << "\n \n \n";
         cout << "\033[0;34m"; // Set the text color to bright blue
         cout << "---------------------------------------" << endl;
-        cout << "            Data Refresh              " << endl;
+        cout << "             Data Refresh              " << endl;
         cout << "---------------------------------------" << endl;
         cout << "\033[0m";
         cout << "\n";
@@ -54,7 +54,7 @@ inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, str
             break;
 
         default:    // Re-prompt the user option
-            cout << "Invalid option!" << endl << endl;
+            cout << "Invalid option!\n" << endl;
             continue;
         }
 
