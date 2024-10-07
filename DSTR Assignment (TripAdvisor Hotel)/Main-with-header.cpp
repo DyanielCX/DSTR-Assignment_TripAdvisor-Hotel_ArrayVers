@@ -65,30 +65,33 @@ int main() {
         cout << "3. Show Summary" << endl;
         cout << "4. Show All Positive Word" << endl;
         cout << "5. Show All Negative Word" << endl;
+        cout << "0. Exit System" << endl;
         cout << "Enter number: ";
         cin >> program;
         
 
         switch (program) {
-        case 1:
+        case 1:     // Refresh Data
             refreshData(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
             break;
-        case 2:
+        case 2:     // Review Analysis
             countSentimentWord(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
             break;
-        case 3:
+        case 3:     // Show Summary
             summary(Review_Data, PosWord_Data, NegWord_Data, CSV_lines, POS_WORDS, NEG_WORDS);
             cout << endl;
             break;
-        case 4:
+        case 4:     // Show All Positive Word
             fileReader.showPosWord(PosWord_Data, POS_WORDS);
             cout << endl;
             break;
-        case 5:
+        case 5:     // Show All Negative Word
             fileReader.showNegWord(NegWord_Data, NEG_WORDS);
             cout << endl;
             break;
-        default:
+        case 0:     // End the system
+            return 0;
+        default:    // Invalid Input
             cout << "Invalid option!" << endl;
             break;
         }
