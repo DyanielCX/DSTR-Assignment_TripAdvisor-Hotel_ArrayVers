@@ -5,8 +5,12 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <chrono>
 #include "ReadInput.hpp"
 using namespace std;
+using namespace chrono;
+
+inline void timeUsedShow(high_resolution_clock::time_point start, high_resolution_clock::time_point end);
 
 
 inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, string* &NegWord_Data, const int CSV_lines, const int POS_WORDS, const int NEG_WORDS) {
@@ -35,19 +39,40 @@ inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, str
 
         switch (program) {
         case 1: // Refresh CSV File
+        {
+            auto startCSV = high_resolution_clock::now();    // Start the timer
             Review_Data = fileReader.readCSV(CSV_lines);
-            cout << "<-- The review & rating array is refreshed -->" << endl ;
+            cout << "<-- The review & rating array is refreshed -->" << endl;
+            auto endCSV = high_resolution_clock::now();      // End the timer
+
+            // Calculate & display time used
+            timeUsedShow(startCSV, endCSV);
             continue;
+        }
 
         case 2: // Refresh Positive Word Text File
+        {
+            auto startCSV = high_resolution_clock::now();    // Start the timer
             PosWord_Data = fileReader.readPositiveWords(POS_WORDS);
             cout << "<-- The positive word array is refreshed -->" << endl;
+            auto endCSV = high_resolution_clock::now();      // End the timer
+
+            // Calculate & display time used
+            timeUsedShow(startCSV, endCSV);
             continue;
+        }
 
         case 3: // Refresh Negative Word Text File
+        {
+            auto startCSV = high_resolution_clock::now();    // Start the timer
             NegWord_Data = fileReader.readNegativeWords(NEG_WORDS);
-            cout << "<-- The positive word array is refreshed -->" << endl;
+            cout << "<-- The negative word array is refreshed -->" << endl;
+            auto endCSV = high_resolution_clock::now();      // End the timer
+
+            // Calculate & display time used
+            timeUsedShow(startCSV, endCSV);
             continue;
+        }
 
         case 0: // Refresh Negative Word Text File
             cout << "\n \n";
@@ -64,4 +89,12 @@ inline void refreshData(ReviewAndRating &Review_Data, string* &PosWord_Data, str
     return;
 }
 
+// Display time used function
+inline void timeUsedShow(high_resolution_clock::time_point start, high_resolution_clock::time_point end) {
+    auto duration = duration_cast<milliseconds>(end - start);
+
+    int milliseconds = duration.count() % 1000;
+
+    cout << "\nTime taken: " << milliseconds << " milliseconds " << endl;
+}
 #endif 
