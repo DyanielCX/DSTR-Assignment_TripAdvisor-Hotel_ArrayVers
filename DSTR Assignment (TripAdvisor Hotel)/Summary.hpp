@@ -108,7 +108,7 @@ inline void CheckWordOcc(string curReview, string* wordList, int* wordFreq, int&
 
 // Display word frequency function
 inline void displayWordFreq(const string* wordList, const int* wordFreq, const int wordCount, const string& wordType) {
-    cout << "\nFrequency of each" << wordType<< "word in reviews : \n";
+    cout << "\nFrequency of each " << wordType<< " word in reviews : \n";
     for (int i = 0; i < wordCount; i++) {
         if (wordFreq[i] > 0) {
             cout << wordList[i] << " = " << wordFreq[i] << " times" << endl;
