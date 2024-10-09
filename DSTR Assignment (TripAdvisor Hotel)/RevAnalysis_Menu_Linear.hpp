@@ -20,6 +20,7 @@ inline void countSentimentWord(ReviewAndRating Review_Data, string* PosWord_Data
             cout << "\033[0;34m"; // Set the text color to bright blue
             cout << "---------------------------------------" << endl;
             cout << "            Review Analysis            " << endl;
+            cout << "           (Linear Algorithm)          " << endl;
             cout << "---------------------------------------" << endl;
             cout << "\033[0m";
             cout << "\n";
@@ -29,6 +30,8 @@ inline void countSentimentWord(ReviewAndRating Review_Data, string* PosWord_Data
             cout << "Enter review number: ";
             cin >> reviewNum;
             cout << "\n";
+
+            auto start = high_resolution_clock::now();    // Start the timer
 
             if (reviewNum > 0 && reviewNum <= lineNum) {
                 string curReview = Review_Data.review_arr[reviewNum - 1];
@@ -73,6 +76,14 @@ inline void countSentimentWord(ReviewAndRating Review_Data, string* PosWord_Data
             else if (reviewNum != 0) {
                 cout << "Invalid review number! Please enter a number between 1 and " << lineNum << "." << endl;
             }
+
+            // Display time used for review analysis
+            auto end = high_resolution_clock::now();      // End the timer
+            auto duration = duration_cast<milliseconds>(end - start);
+            int milliseconds = duration.count() % 1000;
+
+            cout << "\nTime taken: " << milliseconds << " milliseconds " << endl;
+
         } while (reviewNum != 0);
 }
 

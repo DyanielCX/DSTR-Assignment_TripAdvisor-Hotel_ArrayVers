@@ -128,9 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataRefresh_Menu.hpp" />
-    <ClCompile Include="DSTR Assignment (TripAdvisor Hotel).cpp" />
-    <ClCompile Include="Main-with-header.cpp" />
-    <ClCompile Include="RevAnalysisCalc_TernarySear.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Ternary_Function.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="tripadvisor_hotel_reviews.csv" />
@@ -142,7 +141,8 @@
   <ItemGroup>
     <ClInclude Include="ReadInput.hpp" />
     <ClInclude Include="RevAnalysisCalc.hpp" />
-    <ClInclude Include="RevAnalysis_Menu.hpp" />
+    <ClInclude Include="RevAnalysis_Menu_Linear.hpp" />
+    <ClInclude Include="RevAnalysis_Menu_Tenary.hpp" />
     <ClInclude Include="Summary.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
