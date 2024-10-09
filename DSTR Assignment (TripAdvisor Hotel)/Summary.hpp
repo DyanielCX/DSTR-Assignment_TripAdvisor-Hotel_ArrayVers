@@ -23,7 +23,7 @@ inline void summary(ReviewAndRating Review_Data, string* PosWord_Data, string* N
     cout << "\nProcessing the reviews... This might take some time. Please wait." << endl;
     auto start = high_resolution_clock::now();  // Start the timer
 
-    // Sort the word lists for binary searching
+    // Sort the word lists for linear searching
     sort(PosWord_Data, PosWord_Data + POS_WORDS);
     sort(NegWord_Data, NegWord_Data + NEG_WORDS);
 
@@ -93,7 +93,7 @@ inline void summary(ReviewAndRating Review_Data, string* PosWord_Data, string* N
     cout << "\nTime taken: " << minutes << " minutes " << seconds << " seconds" << endl;
 }
 
-// Check word occurrences function
+// Check word occurrences function - linear search
 inline void CheckWordOcc(string curReview, string* wordList, int* wordFreq, int& totalCount, const int wordCount) {
     for (int j = 0; j < wordCount; j++) {
         if (curReview.find(wordList[j]) != string::npos) {
@@ -142,7 +142,7 @@ inline void findMinMaxUsedWords(const int* posWordFreq, const int* negWordFreq, 
         }
     }
 
-    // Search through negative words and update min/max frequencies if necessary
+    // Search through negative words and update min/max frequencies if found
     for (int i = 0; i < NEG_WORDS; i++) {
         if (negWordFreq[i] > 0 && negWordFreq[i] < minFreq) {
             minFreq = negWordFreq[i];
