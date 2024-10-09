@@ -130,6 +130,7 @@
     <ClCompile Include="DataRefresh_Menu.hpp" />
     <ClCompile Include="DSTR Assignment (TripAdvisor Hotel).cpp" />
     <ClCompile Include="Main-with-header.cpp" />
+    <ClCompile Include="RevAnalysisCalc_TernarySear.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="tripadvisor_hotel_reviews.csv" />
