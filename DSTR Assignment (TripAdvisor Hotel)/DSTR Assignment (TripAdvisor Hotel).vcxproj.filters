@@ -24,6 +24,9 @@
     <ClCompile Include="Main-with-header.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RevAnalysisCalc_TernarySear.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="tripadvisor_hotel_reviews.csv">
@@ -31,8 +34,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="negative-words.txt" />
-    <Text Include="positive-words.txt" />
+    <Text Include="positive-words.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="negative-words.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReadInput.hpp">
