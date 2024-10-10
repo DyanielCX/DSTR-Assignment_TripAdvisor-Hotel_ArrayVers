@@ -110,6 +110,15 @@ inline void findMinMaxUsedWords(const int* posWordFreq, const int* negWordFreq, 
 
     // Determine the max frequency across positive words
     for (int i = 0; i < POS_WORDS; i++) {
+        // Skip words with 0 occurrences for minimum used words
+        if (posWordFreq[i] > 0 && posWordFreq[i] < minFreq) {
+            minFreq = posWordFreq[i];
+            minWordCount = 1;
+        }
+        else if (posWordFreq[i] == minFreq) {
+            minWordCount++;
+        }
+
         if (posWordFreq[i] > maxFreq) {
             maxFreq = posWordFreq[i];
             maxWordCount = 1;
@@ -117,52 +126,25 @@ inline void findMinMaxUsedWords(const int* posWordFreq, const int* negWordFreq, 
         else if (posWordFreq[i] == maxFreq) {
             maxWordCount++;
         }
-
-        // Handle words with 0 occurrences or the minimum frequency
-        if (posWordFreq[i] == 0) {
-            if (minFreq != 0) {
-                minFreq = 0;
-                minWordCount = 1;  // First word with 0 occurrences
-            }
-            else {
-                minWordCount++;
-            }
-        }
-        else if (posWordFreq[i] < minFreq) {
-            minFreq = posWordFreq[i];
-            minWordCount = 1;
-        }
-        else if (posWordFreq[i] == minFreq) {
-            minWordCount++;
-        }
     }
 
     // Determine the min/max frequency across negative words
     for (int i = 0; i < NEG_WORDS; i++) {
+        // Skip words with 0 occurrences for minimum used words
+        if (negWordFreq[i] > 0 && negWordFreq[i] < minFreq) {
+            minFreq = negWordFreq[i];
+            minWordCount = 1;
+        }
+        else if (negWordFreq[i] == minFreq) {
+            minWordCount++;
+        }
+
         if (negWordFreq[i] > maxFreq) {
             maxFreq = negWordFreq[i];
             maxWordCount = 1;
         }
         else if (negWordFreq[i] == maxFreq) {
             maxWordCount++;
-        }
-
-        // Handle words with 0 occurrences or the minimum frequency
-        if (negWordFreq[i] == 0) {
-            if (minFreq != 0) {
-                minFreq = 0;
-                minWordCount = 1;  // First word with 0 occurrences
-            }
-            else {
-                minWordCount++;
-            }
-        }
-        else if (negWordFreq[i] < minFreq) {
-            minFreq = negWordFreq[i];
-            minWordCount = 1;
-        }
-        else if (negWordFreq[i] == minFreq) {
-            minWordCount++;
         }
     }
 
@@ -193,6 +175,7 @@ inline void findMinMaxUsedWords(const int* posWordFreq, const int* negWordFreq, 
         }
     }
 }
+
 
 
 // Display word usage function
