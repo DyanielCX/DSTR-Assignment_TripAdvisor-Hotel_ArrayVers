@@ -101,10 +101,8 @@ inline void displayWordFreq(const string* wordList, const int* wordFreq, const i
 inline void findMinMaxUsedWords(const int* posWordFreq, const int* negWordFreq, const string* posWordList, const string* negWordList,
     const int POS_WORDS, const int NEG_WORDS, string*& minUsedWords, string*& maxUsedWords,
     int& minFreq, int& maxFreq, int& minWordCount, int& maxWordCount) {
-
     minFreq = INT_MAX;
     maxFreq = 0;
-
     minWordCount = 0;
     maxWordCount = 0;
 
@@ -176,8 +174,6 @@ inline void findMinMaxUsedWords(const int* posWordFreq, const int* negWordFreq, 
     }
 }
 
-
-
 // Display word usage function
 inline void displayWordUsage(const string* wordArray, int wordCount, int freq, const string& usageType) {
     cout << "\n" << usageType << " used words in the reviews: ";
@@ -204,7 +200,7 @@ inline void summary(ReviewAndRating Review_Data, string* PosWord_Data, string* N
     // Process each review
     for (int i = 0; i < lineNum; i++) {
         string curReview = Review_Data.review_arr[i];
-        transform(curReview.begin(), curReview.end(), curReview.begin(), ::tolower); // Case-insensitive
+        transform(curReview.begin(), curReview.end(), curReview.begin(), ::tolower);  // Case-insensitive
 
         // Check for occurrences of positive and negative words
         CheckWordOcc(curReview, PosWord_Data, posWordFreq, totalPosCount, POS_WORDS);
@@ -217,7 +213,7 @@ inline void summary(ReviewAndRating Review_Data, string* PosWord_Data, string* N
 
     // Title design
     cout << "\n \n";
-    cout << "\033[0;34m"; // Set the text color to bright blue
+    cout << "\033[0;34m";  // Set the text color to bright blue
     cout << "---------------------------------------" << endl;
     cout << "            Review Summary             " << endl;
     cout << "---------------------------------------" << endl;
