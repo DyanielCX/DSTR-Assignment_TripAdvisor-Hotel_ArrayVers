@@ -91,13 +91,11 @@ inline void countSentimentWord(ReviewAndRating Review_Data, string* PosWord_Data
 // Display posWord negWord function
 inline void display_POS_NEG(string* foundPosWords, string* foundNegWords, int posCount, int negCount) {
     
-    // Display positive words
     cout << "\nPositive Words = " << posCount << ":\n";
     for (int i = 0; i < posCount; i++) {
         cout << "- " << foundPosWords[i] << endl;
     }
 
-    // Display negative words
     cout << "\nNegative Words = " << negCount << ":\n";
     for (int i = 0; i < negCount; i++) {
         cout << "- " << foundNegWords[i] << endl;
